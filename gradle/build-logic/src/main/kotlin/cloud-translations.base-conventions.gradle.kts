@@ -5,6 +5,10 @@ plugins {
 
 indra {
     checkstyle().set(libs.versions.checkstyle)
+    javaVersions {
+        minimumToolchain(8)
+        target(9)
+    }
 }
 
 cloudSpotless {
