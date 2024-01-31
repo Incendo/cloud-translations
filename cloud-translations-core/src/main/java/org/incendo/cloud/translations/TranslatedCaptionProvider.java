@@ -23,6 +23,7 @@
 //
 package org.incendo.cloud.translations;
 
+import java.util.Locale;
 import org.checkerframework.checker.nullness.qual.NonNull;
 import org.checkerframework.checker.nullness.qual.Nullable;
 import org.incendo.cloud.caption.Caption;
@@ -53,6 +54,13 @@ public interface TranslatedCaptionProvider<C> extends CaptionProvider<C> {
      */
     boolean isEmpty();
 
+    /**
+     * Returns the provider locale.
+     *
+     * @return the locale
+     */
+    @NonNull Locale locale();
+
     final class Empty<C> implements TranslatedCaptionProvider<C> {
 
         private static final Empty<?> EMPTY = new Empty<>();
@@ -68,6 +76,11 @@ public interface TranslatedCaptionProvider<C> extends CaptionProvider<C> {
         @Override
         public boolean isEmpty() {
             return true;
+        }
+
+        @Override
+        public @NonNull Locale locale() {
+            return Locale.getDefault();
         }
     }
 }

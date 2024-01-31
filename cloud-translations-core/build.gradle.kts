@@ -1,6 +1,6 @@
 plugins {
     id("cloud-translations.base-conventions")
-    // id("cloud-translations.publishing-conventions")
+    id("cloud-translations.publishing-conventions")
 }
 
 dependencies {

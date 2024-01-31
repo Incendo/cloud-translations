@@ -67,7 +67,7 @@ final class ResourceBundleTranslationBundle<C> implements TranslationBundle<C> {
 
     private @NonNull TranslatedCaptionProvider<C> loadTranslations(final @NonNull Locale locale) {
         try {
-            return new ResourceBundleTranslatedCaptionProvider<>(ResourceBundle.getBundle(this.key, locale));
+            return new ResourceBundleTranslatedCaptionProvider<>(ResourceBundle.getBundle(this.key, locale), locale);
         } catch (final MissingResourceException ignored) {
             return TranslatedCaptionProvider.empty();
         }

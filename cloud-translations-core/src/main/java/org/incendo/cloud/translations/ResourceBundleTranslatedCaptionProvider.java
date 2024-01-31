@@ -23,6 +23,7 @@
 //
 package org.incendo.cloud.translations;
 
+import java.util.Locale;
 import java.util.Objects;
 import java.util.ResourceBundle;
 import org.apiguardian.api.API;
@@ -34,14 +35,24 @@ import org.incendo.cloud.caption.Caption;
 final class ResourceBundleTranslatedCaptionProvider<C> implements TranslatedCaptionProvider<C> {
 
     private final ResourceBundle resourceBundle;
+    private final Locale locale;
 
-    ResourceBundleTranslatedCaptionProvider(final @NonNull ResourceBundle resourceBundle) {
-        this.resourceBundle = Objects.requireNonNull(resourceBundle);
+    ResourceBundleTranslatedCaptionProvider(
+            final @NonNull ResourceBundle resourceBundle,
+            final @NonNull Locale locale
+    ) {
+        this.resourceBundle = Objects.requireNonNull(resourceBundle, "resourceBundle");
+        this.locale = Objects.requireNonNull(locale, "locale");
     }
 
     @Override
     public boolean isEmpty() {
         return this.resourceBundle.keySet().isEmpty();
+    }
+
+    @Override
+    public @NonNull Locale locale() {
+        return this.locale;
     }
 
     @Override

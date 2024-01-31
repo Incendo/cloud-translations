@@ -91,7 +91,8 @@ public interface TranslationBundle<C> extends CaptionProvider<C> {
 
     @Override
     default @Nullable String provide(final @NonNull Caption caption, final @NonNull C recipient) {
-        final TranslatedCaptionProvider<C> translatedCaptionProvider = this.translations(this.localeExtractor().extract(recipient));
+        final Locale locale = this.localeExtractor().extract(recipient);
+        final TranslatedCaptionProvider<C> translatedCaptionProvider = this.translations(locale);
         if (translatedCaptionProvider == null) {
             return null;
         }
