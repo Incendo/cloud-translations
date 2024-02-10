@@ -30,9 +30,10 @@ dependencyResolutionManagement {
 
 rootProject.name = "cloud-translations"
 
-include(":cloud-translations-core")
+include("cloud-translations-core")
 
 // Minecraft modules
-include(":cloud-translations-bukkit")
-include(":cloud-translations-bungee")
-include(":cloud-translations-velocity")
+include("cloud-translations-bukkit")
+include("cloud-translations-bungee")
+include("cloud-translations-velocity")
+include("cloud-translations-minecraft-extras")
