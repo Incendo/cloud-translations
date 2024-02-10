@@ -53,6 +53,6 @@ public final class BungeeTranslationBundle {
     public static <C> @NonNull TranslationBundle<C> bungee(
             final @NonNull LocaleExtractor<C> localeExtractor
     ) {
-        return TranslationBundle.resourceBundle("org.incendo.cloud.bukkit.lang.messages", localeExtractor);
+        return TranslationBundle.resourceBundle("org.incendo.cloud.bungee.lang.messages", localeExtractor);
     }
 }
