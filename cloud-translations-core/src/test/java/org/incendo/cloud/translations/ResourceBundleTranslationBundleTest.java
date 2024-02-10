@@ -51,7 +51,7 @@ class ResourceBundleTranslationBundleTest {
 
         // Assert
         assertThat(bundle.provide(StandardCaptionKeys.EXCEPTION_INVALID_SYNTAX, this.commandSender))
-                .isEqualTo("Invalid Command Syntax. Correct command syntax is: <syntax>.");
+                .isEqualTo("Invalid command syntax. Correct command syntax is: <syntax>.");
     }
 
     @Test
