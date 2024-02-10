@@ -82,6 +82,15 @@ public interface TranslationBundle<C> extends CaptionProvider<C> {
     @NonNull LocaleExtractor<C> localeExtractor();
 
     /**
+     * Returns the fallback locale for when a message is not present in the user's locale.
+     *
+     * @return fallback locale
+     */
+    default @NonNull Locale fallbackLocale() {
+        return Locale.US;
+    }
+
+    /**
      * Returns the translations for the given {@code locale}.
      *
      * @param locale translation locale
@@ -92,6 +101,18 @@ public interface TranslationBundle<C> extends CaptionProvider<C> {
     @Override
     default @Nullable String provide(final @NonNull Caption caption, final @NonNull C recipient) {
         final Locale locale = this.localeExtractor().extract(recipient);
+        String provide = this.provideForLocale(caption, recipient, locale);
+        if (provide == null) {
+            provide = this.provideForLocale(caption, recipient, this.fallbackLocale());
+        }
+        return provide;
+    }
+
+    private @Nullable String provideForLocale(
+            final @NonNull Caption caption,
+            final @NonNull C recipient,
+            final @NonNull Locale locale
+    ) {
         final TranslatedCaptionProvider<C> translatedCaptionProvider = this.translations(locale);
         if (translatedCaptionProvider == null) {
             return null;
