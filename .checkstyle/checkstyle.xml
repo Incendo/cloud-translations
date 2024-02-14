@@ -223,6 +223,11 @@
             <property name="optional" value="true"/>
         </module>
 
+        <!-- Make the @SuppressWarnings annotations available to Checkstyle -->
+        <module name="SuppressWarningsHolder" />
+
     </module>
+
+    <module name="SuppressWarningsFilter" />
 
 </module>
