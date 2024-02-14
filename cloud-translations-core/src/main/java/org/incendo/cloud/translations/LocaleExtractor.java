@@ -119,6 +119,11 @@ public interface LocaleExtractor<C> {
             return this.senderType(TypeToken.get(senderType), extractor);
         }
 
+        /**
+         * Builds a {@link LocaleExtractor} from the state of this builder.
+         *
+         * @return new locale extractor
+         */
         @NonNull LocaleExtractor<C> build();
     }
 }
