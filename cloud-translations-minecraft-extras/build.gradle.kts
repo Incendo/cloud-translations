@@ -5,4 +5,6 @@ plugins {
 
 dependencies {
     api(projects.cloudTranslationsCore)
+    compileOnlyApi(libs.cloud.minecraft.extras)
+    testImplementation(libs.cloud.minecraft.extras)
 }

@@ -15,6 +15,7 @@ coroutines = "1.7.3"
 
 # Cloud
 cloud = "2.0.0-beta.2"
+cloud-minecraft = "2.0.0-beta.3"
 
 # External
 immutables = "2.10.0"
@@ -31,6 +32,7 @@ gradleKotlinJvm = { group = "org.jetbrains.kotlin.jvm", name = "org.jetbrains.ko
 
 # Cloud
 cloud-core = { group = "org.incendo", name = "cloud-core", version.ref = "cloud" }
+cloud-minecraft-extras = { group = "org.incendo", name = "cloud-minecraft-extras", version.ref = "cloud-minecraft" }
 
 # External
 immutables = { group = "org.immutables", name = "value", version.ref = "immutables" }
