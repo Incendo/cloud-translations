@@ -30,6 +30,8 @@ dependencyResolutionManagement {
 
 rootProject.name = "cloud-translations"
 
+include("cloud-translations-bom")
+
 include("cloud-translations-core")
 
 // Minecraft modules
