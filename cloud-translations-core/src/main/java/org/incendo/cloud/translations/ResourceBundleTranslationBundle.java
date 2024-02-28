@@ -23,16 +23,25 @@
 //
 package org.incendo.cloud.translations;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.URL;
+import java.net.URLConnection;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.MissingResourceException;
-import java.util.Objects;
 import java.util.ResourceBundle;
 import org.apiguardian.api.API;
 import org.checkerframework.checker.nullness.qual.NonNull;
 import org.checkerframework.checker.nullness.qual.Nullable;
+
+import static java.util.Objects.requireNonNull;
 
 @API(status = API.Status.INTERNAL)
 final class ResourceBundleTranslationBundle<C> implements TranslationBundle<C> {
@@ -45,8 +54,8 @@ final class ResourceBundleTranslationBundle<C> implements TranslationBundle<C> {
             final @NonNull String baseName,
             final @NonNull LocaleExtractor<C> localeExtractor
     ) {
-        this.key = Objects.requireNonNull(baseName, "baseName");
-        this.localeExtractor = Objects.requireNonNull(localeExtractor, "localeExtractor");
+        this.key = requireNonNull(baseName, "baseName");
+        this.localeExtractor = requireNonNull(localeExtractor, "localeExtractor");
     }
 
     @Override
@@ -77,13 +86,48 @@ final class ResourceBundleTranslationBundle<C> implements TranslationBundle<C> {
         }
     }
 
-    private static class Control extends ResourceBundle.Control {
+    private class Control extends ResourceBundle.Control {
 
         @Override
         public List<Locale> getCandidateLocales(final String baseName, final Locale locale) {
             final List<Locale> originalCandidates = super.getCandidateLocales(baseName, locale);
-            System.out.println(originalCandidates);
-            return originalCandidates;
+            final String path = ResourceBundleTranslationBundle.this.key.replace(".", "/")
+                    .replace("messages", "locales.list");
+            final URL url = requireNonNull(this.getClass().getClassLoader().getResource(path), path);
+            final List<String> localeStrings;
+            try {
+                final URLConnection conn = url.openConnection();
+                try (final InputStream s = conn.getInputStream()) {
+                    localeStrings = new BufferedReader(new InputStreamReader(new BufferedInputStream(s)))
+                            .lines()
+                            .toList();
+                }
+            } catch (final IOException e) {
+                throw new RuntimeException(e);
+            }
+
+            String base = null;
+            int noCountry = -1;
+            for (int i = 0; i < originalCandidates.size(); i++) {
+                final Locale candidate = originalCandidates.get(i);
+                if (candidate.getCountry().isBlank()) {
+                    base = candidate.getLanguage();
+                    noCountry = i + 1;
+                    break;
+                }
+                if (candidate == Locale.ROOT) {
+                    return originalCandidates;
+                }
+            }
+            final ArrayList<Locale> locales = new ArrayList<>(originalCandidates);
+            if (base != null) {
+                for (final String localeString : localeStrings) {
+                    if (localeString.startsWith(base + "_")) {
+                        locales.add(noCountry, new Locale(localeString));
+                    }
+                }
+            }
+            return locales;
         }
     }
 }

@@ -22,6 +22,14 @@ spotless {
     }
 }
 
+val writeLocales = tasks.register<WriteLocales>("writeLocales")
+
+sourceSets.main {
+    resources {
+        srcDir(writeLocales.flatMap { it.outputDir })
+    }
+}
+
 // Common dependencies.
 dependencies {
     // external

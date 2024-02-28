@@ -8,3 +8,7 @@ dependencies {
     compileOnlyApi(libs.cloud.minecraft.extras)
     testImplementation(libs.cloud.minecraft.extras)
 }
+
+tasks.writeLocales {
+    key = "org.incendo.cloud.minecraft.extras.lang"
+}
