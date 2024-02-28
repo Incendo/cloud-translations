@@ -124,7 +124,8 @@ final class ResourceBundleTranslationBundle<C> implements TranslationBundle<C> {
             if (base != null) {
                 for (final String localeString : localeStrings) {
                     if (localeString.startsWith(base + "_")) {
-                        locales.add(noCountry, new Locale(localeString));
+                        final String[] split = localeString.split("_");
+                        locales.add(noCountry, new Locale(split[0], split[1]));
                     }
                 }
             }
