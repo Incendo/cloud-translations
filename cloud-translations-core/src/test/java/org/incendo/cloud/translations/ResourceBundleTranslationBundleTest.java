@@ -76,7 +76,7 @@ class ResourceBundleTranslationBundleTest {
         when(this.commandSender.locale()).thenReturn(new Locale("es", "MX", ""));
 
         assertThat(bundle.provide(Caption.of("present"), this.commandSender)).isEqualTo("ES_MX");
-        assertThat(bundle.provide(Caption.of("present1"), this.commandSender)).isEqualTo("ES1");
+        assertThat(bundle.provide(Caption.of("present1"), this.commandSender)).isEqualTo("ES_ES1");
         assertThat(bundle.provide(Caption.of("missing"), this.commandSender)).isEqualTo("ENGLISH FALLBACK");
     }
 
