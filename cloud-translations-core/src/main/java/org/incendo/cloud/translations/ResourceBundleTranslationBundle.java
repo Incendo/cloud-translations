@@ -32,6 +32,7 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -127,7 +128,7 @@ final class ResourceBundleTranslationBundle<C> implements TranslationBundle<C> {
                     }
                 }
             }
-            return locales;
+            return new ArrayList<>(new LinkedHashSet<>(locales));
         }
     }
 }
