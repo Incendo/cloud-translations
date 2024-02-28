@@ -103,7 +103,7 @@ final class ResourceBundleTranslationBundle<C> implements TranslationBundle<C> {
                             .toList();
                 }
             } catch (final IOException e) {
-                throw new RuntimeException(e);
+                throw new RuntimeException("Exception reading"  + path, e);
             }
         }
 
