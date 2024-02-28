@@ -39,7 +39,7 @@ abstract class WriteLocales : DefaultTask() {
             dir.mkdirs()
         }
         val f = dir.resolve(key.get().replace(".", "/"))
-            .resolve("locales.list")
+            .resolve("messages-locales.list")
         if (f.exists()) {
             f.delete()
         }

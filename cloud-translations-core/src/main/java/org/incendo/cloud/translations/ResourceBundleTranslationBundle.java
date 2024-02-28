@@ -92,9 +92,15 @@ final class ResourceBundleTranslationBundle<C> implements TranslationBundle<C> {
         private final List<String> availableLocales;
 
         Control() {
-            final String path = ResourceBundleTranslationBundle.this.key.replace(".", "/")
-                    .replace("messages", "locales.list");
-            final URL url = requireNonNull(this.getClass().getClassLoader().getResource(path), path);
+            final String[] split = ResourceBundleTranslationBundle.this.key.replace(".", "/").split("/");
+            final String last = split[split.length - 1];
+            split[split.length - 1] = last + "-locales.list";
+            final String path = String.join("/", split);
+            final @Nullable URL url = this.getClass().getClassLoader().getResource(path);
+            if (url == null) {
+                this.availableLocales = List.of();
+                return;
+            }
             try {
                 final URLConnection conn = url.openConnection();
                 try (InputStream s = conn.getInputStream()) {
@@ -110,6 +116,10 @@ final class ResourceBundleTranslationBundle<C> implements TranslationBundle<C> {
         @Override
         public List<Locale> getCandidateLocales(final String baseName, final Locale locale) {
             final List<Locale> originalCandidates = super.getCandidateLocales(baseName, locale);
+
+            if (this.availableLocales.isEmpty()) {
+                return originalCandidates;
+            }
 
             String base = null;
             int noCountry = -1;
