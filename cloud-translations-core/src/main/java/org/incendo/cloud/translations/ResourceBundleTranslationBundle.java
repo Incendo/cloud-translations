@@ -24,6 +24,7 @@
 package org.incendo.cloud.translations;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.MissingResourceException;
@@ -67,9 +68,22 @@ final class ResourceBundleTranslationBundle<C> implements TranslationBundle<C> {
 
     private @NonNull TranslatedCaptionProvider<C> loadTranslations(final @NonNull Locale locale) {
         try {
-            return new ResourceBundleTranslatedCaptionProvider<>(ResourceBundle.getBundle(this.key, locale), locale);
+            return new ResourceBundleTranslatedCaptionProvider<>(
+                    ResourceBundle.getBundle(this.key, locale, new Control()),
+                    locale
+            );
         } catch (final MissingResourceException ignored) {
             return TranslatedCaptionProvider.empty();
+        }
+    }
+
+    private static class Control extends ResourceBundle.Control {
+
+        @Override
+        public List<Locale> getCandidateLocales(final String baseName, final Locale locale) {
+            final List<Locale> originalCandidates = super.getCandidateLocales(baseName, locale);
+            System.out.println(originalCandidates);
+            return originalCandidates;
         }
     }
 }
