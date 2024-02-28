@@ -86,7 +86,7 @@ final class ResourceBundleTranslationBundle<C> implements TranslationBundle<C> {
         }
     }
 
-    private class Control extends ResourceBundle.Control {
+    private final class Control extends ResourceBundle.Control {
 
         @Override
         public List<Locale> getCandidateLocales(final String baseName, final Locale locale) {
@@ -97,7 +97,7 @@ final class ResourceBundleTranslationBundle<C> implements TranslationBundle<C> {
             final List<String> localeStrings;
             try {
                 final URLConnection conn = url.openConnection();
-                try (final InputStream s = conn.getInputStream()) {
+                try (InputStream s = conn.getInputStream()) {
                     localeStrings = new BufferedReader(new InputStreamReader(new BufferedInputStream(s)))
                             .lines()
                             .toList();
