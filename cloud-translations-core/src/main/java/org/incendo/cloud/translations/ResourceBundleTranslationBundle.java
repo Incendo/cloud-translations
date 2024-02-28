@@ -89,23 +89,27 @@ final class ResourceBundleTranslationBundle<C> implements TranslationBundle<C> {
 
     private final class Control extends ResourceBundle.Control {
 
-        @Override
-        public List<Locale> getCandidateLocales(final String baseName, final Locale locale) {
-            final List<Locale> originalCandidates = super.getCandidateLocales(baseName, locale);
+        private final List<String> availableLocales;
+
+        Control() {
             final String path = ResourceBundleTranslationBundle.this.key.replace(".", "/")
                     .replace("messages", "locales.list");
             final URL url = requireNonNull(this.getClass().getClassLoader().getResource(path), path);
-            final List<String> localeStrings;
             try {
                 final URLConnection conn = url.openConnection();
                 try (InputStream s = conn.getInputStream()) {
-                    localeStrings = new BufferedReader(new InputStreamReader(new BufferedInputStream(s)))
+                    this.availableLocales = new BufferedReader(new InputStreamReader(new BufferedInputStream(s)))
                             .lines()
                             .toList();
                 }
             } catch (final IOException e) {
                 throw new RuntimeException(e);
             }
+        }
+
+        @Override
+        public List<Locale> getCandidateLocales(final String baseName, final Locale locale) {
+            final List<Locale> originalCandidates = super.getCandidateLocales(baseName, locale);
 
             String base = null;
             int noCountry = -1;
@@ -122,7 +126,7 @@ final class ResourceBundleTranslationBundle<C> implements TranslationBundle<C> {
             }
             final ArrayList<Locale> locales = new ArrayList<>(originalCandidates);
             if (base != null) {
-                for (final String localeString : localeStrings) {
+                for (final String localeString : this.availableLocales) {
                     if (localeString.startsWith(base + "_")) {
                         final String[] split = localeString.split("_");
                         locales.add(noCountry, new Locale(split[0], split[1]));
