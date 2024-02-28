@@ -66,6 +66,20 @@ class ResourceBundleTranslationBundleTest {
         assertThat(bundle.provide(Caption.of("invalid"), this.commandSender)).isEqualTo(null);
     }
 
+    @Test
+    void fallbackLocale() {
+        final TranslationBundle<CommandSender> bundle = TranslationBundle.resourceBundle(
+                "org.incendo.cloud.translations.test.fallback_locale.messages",
+                CommandSender::locale
+        );
+
+        when(this.commandSender.locale()).thenReturn(new Locale("es", "MX", ""));
+
+        assertThat(bundle.provide(Caption.of("present"), this.commandSender)).isEqualTo("ES_MX");
+        assertThat(bundle.provide(Caption.of("present1"), this.commandSender)).isEqualTo("ES_ES1");
+        assertThat(bundle.provide(Caption.of("missing"), this.commandSender)).isEqualTo("ENGLISH FALLBACK");
+    }
+
     interface CommandSender {
 
         @NonNull Locale locale();

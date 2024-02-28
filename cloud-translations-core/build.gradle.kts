@@ -6,3 +6,7 @@ plugins {
 dependencies {
     api(libs.cloud.core)
 }
+
+tasks.writeLocales {
+    key = "org.incendo.cloud.core.lang"
+}

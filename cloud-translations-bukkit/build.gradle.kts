@@ -6,3 +6,7 @@ plugins {
 dependencies {
     api(projects.cloudTranslationsCore)
 }
+
+tasks.writeLocales {
+    key = "org.incendo.cloud.bukkit.lang"
+}
