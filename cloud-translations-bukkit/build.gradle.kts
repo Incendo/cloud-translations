@@ -7,6 +7,4 @@ dependencies {
     api(projects.cloudTranslationsCore)
 }
 
-tasks.writeLocales {
-    key = "org.incendo.cloud.bukkit.lang"
-}
+writeLocaleList.registerBundle("org.incendo.cloud.bukkit.lang.messages")

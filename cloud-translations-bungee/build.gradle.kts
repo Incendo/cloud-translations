@@ -7,6 +7,4 @@ dependencies {
     api(projects.cloudTranslationsCore)
 }
 
-tasks.writeLocales {
-    key = "org.incendo.cloud.bungee.lang"
-}
+writeLocaleList.registerBundle("org.incendo.cloud.bungee.lang.messages")

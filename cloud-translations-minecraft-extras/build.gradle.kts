@@ -9,6 +9,4 @@ dependencies {
     testImplementation(libs.cloud.minecraft.extras)
 }
 
-tasks.writeLocales {
-    key = "org.incendo.cloud.minecraft.extras.lang"
-}
+writeLocaleList.registerBundle("org.incendo.cloud.minecraft.extras.lang.messages")

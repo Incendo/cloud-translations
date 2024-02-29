@@ -1,6 +1,7 @@
 plugins {
     id("org.incendo.cloud-build-logic")
     id("org.incendo.cloud-build-logic.spotless")
+    id("org.incendo.cloud-build-logic.write-locale-list")
 }
 
 indra {
@@ -19,14 +20,6 @@ cloudSpotless {
 spotless {
     java {
         importOrderFile(rootProject.file(".spotless/cloud-translations.importorder"))
-    }
-}
-
-val writeLocales = tasks.register<WriteLocales>("writeLocales")
-
-sourceSets.main {
-    resources {
-        srcDir(writeLocales.flatMap { it.outputDir })
     }
 }
 
