@@ -53,6 +53,10 @@ public final class BukkitTranslationBundle {
     public static <C> @NonNull TranslationBundle<C> bukkit(
             final @NonNull LocaleExtractor<C> localeExtractor
     ) {
-        return TranslationBundle.resourceBundle("org.incendo.cloud.bukkit.lang.messages", localeExtractor);
+        return TranslationBundle.resourceBundle(
+                "org.incendo.cloud.bukkit.lang.messages",
+                localeExtractor,
+                BukkitTranslationBundle.class.getClassLoader()
+        );
     }
 }

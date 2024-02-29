@@ -53,6 +53,10 @@ public final class VelocityTranslationBundle {
     public static <C> @NonNull TranslationBundle<C> velocity(
             final @NonNull LocaleExtractor<C> localeExtractor
     ) {
-        return TranslationBundle.resourceBundle("org.incendo.cloud.velocity.lang.messages", localeExtractor);
+        return TranslationBundle.resourceBundle(
+                "org.incendo.cloud.velocity.lang.messages",
+                localeExtractor,
+                VelocityTranslationBundle.class.getClassLoader()
+        );
     }
 }

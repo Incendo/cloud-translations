@@ -47,18 +47,40 @@ import org.incendo.cloud.caption.CaptionRegistry;
 public interface TranslationBundle<C> extends CaptionProvider<C> {
 
     /**
-     * Creates a new translation bundle backed by a{@link java.util.ResourceBundle} with the given {@code baseName}.
+     * Creates a new translation bundle backed by a {@link java.util.ResourceBundle} with the given {@code baseName}.
+     *
+     * <p>The bundle will use the {@link ClassLoader} of {@link TranslationBundle} for lookups.</p>
      *
      * @param <C>             command sender type
      * @param baseName        resource bundle base name
      * @param localeExtractor locale extractor
+     * @see #resourceBundle(String, LocaleExtractor, ClassLoader)
      * @return the translation bundle
      */
     static <C> @NonNull TranslationBundle<C> resourceBundle(
             final @NonNull String baseName,
             final @NonNull LocaleExtractor<C> localeExtractor
     ) {
-        return new ResourceBundleTranslationBundle<>(baseName, localeExtractor);
+        return resourceBundle(baseName, localeExtractor, TranslationBundle.class.getClassLoader());
+    }
+
+    /**
+     * Creates a new translation bundle backed by a {@link java.util.ResourceBundle} with the given {@code baseName}.
+     *
+     * <p>The provided {@link ClassLoader} will be used for lookups.</p>
+     *
+     * @param <C>             command sender type
+     * @param baseName        resource bundle base name
+     * @param localeExtractor locale extractor
+     * @param classLoader     class loader
+     * @return the translation bundle
+     */
+    static <C> @NonNull TranslationBundle<C> resourceBundle(
+            final @NonNull String baseName,
+            final @NonNull LocaleExtractor<C> localeExtractor,
+            final @NonNull ClassLoader classLoader
+    ) {
+        return new ResourceBundleTranslationBundle<>(baseName, localeExtractor, classLoader);
     }
 
     /**
@@ -71,7 +93,11 @@ public interface TranslationBundle<C> extends CaptionProvider<C> {
     static <C> @NonNull TranslationBundle<C> core(
             final @NonNull LocaleExtractor<C> localeExtractor
     ) {
-        return new ResourceBundleTranslationBundle<>("org.incendo.cloud.core.lang.messages", localeExtractor);
+        return new ResourceBundleTranslationBundle<>(
+                "org.incendo.cloud.core.lang.messages",
+                localeExtractor,
+                TranslationBundle.class.getClassLoader()
+        );
     }
 
     /**

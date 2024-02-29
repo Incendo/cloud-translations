@@ -53,6 +53,10 @@ public final class MinecraftExtrasTranslationBundle {
     public static <C> @NonNull TranslationBundle<C> minecraftExtras(
             final @NonNull LocaleExtractor<C> localeExtractor
     ) {
-        return TranslationBundle.resourceBundle("org.incendo.cloud.minecraft.extras.lang.messages", localeExtractor);
+        return TranslationBundle.resourceBundle(
+                "org.incendo.cloud.minecraft.extras.lang.messages",
+                localeExtractor,
+                MinecraftExtrasTranslationBundle.class.getClassLoader()
+        );
     }
 }

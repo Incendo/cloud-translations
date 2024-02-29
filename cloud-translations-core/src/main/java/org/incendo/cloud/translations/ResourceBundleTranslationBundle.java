@@ -49,14 +49,17 @@ final class ResourceBundleTranslationBundle<C> implements TranslationBundle<C> {
 
     private final String key;
     private final LocaleExtractor<C> localeExtractor;
+    private final ClassLoader classLoader;
     private final Map<Locale, TranslatedCaptionProvider<C>> translations = new HashMap<>();
 
     ResourceBundleTranslationBundle(
             final @NonNull String baseName,
-            final @NonNull LocaleExtractor<C> localeExtractor
+            final @NonNull LocaleExtractor<C> localeExtractor,
+            final @NonNull ClassLoader classLoader
     ) {
         this.key = requireNonNull(baseName, "baseName");
         this.localeExtractor = requireNonNull(localeExtractor, "localeExtractor");
+        this.classLoader = requireNonNull(classLoader, "classLoader");
     }
 
     @Override
@@ -79,7 +82,7 @@ final class ResourceBundleTranslationBundle<C> implements TranslationBundle<C> {
     private @NonNull TranslatedCaptionProvider<C> loadTranslations(final @NonNull Locale locale) {
         try {
             return new ResourceBundleTranslatedCaptionProvider<>(
-                    ResourceBundle.getBundle(this.key, locale, new Control()),
+                    ResourceBundle.getBundle(this.key, locale, this.classLoader, new Control()),
                     locale
             );
         } catch (final MissingResourceException ignored) {
@@ -96,7 +99,7 @@ final class ResourceBundleTranslationBundle<C> implements TranslationBundle<C> {
             final String last = split[split.length - 1];
             split[split.length - 1] = last + "-locales.list";
             final String path = String.join("/", split);
-            final @Nullable URL url = this.getClass().getClassLoader().getResource(path);
+            final @Nullable URL url = ResourceBundleTranslationBundle.this.classLoader.getResource(path);
             if (url == null) {
                 this.availableLocales = List.of();
                 return;
