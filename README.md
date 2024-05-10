@@ -10,8 +10,11 @@
 [![docs](https://img.shields.io/readthedocs/incendocloud?logo=readthedocs)](https://cloud.incendo.org)
 </div>
 
+> [!NOTE]  
+> This project requires _at least_ Java 17.
+
 ## links
 
 - JavaDoc: https://javadoc.io/doc/org.incendo
-- Docs: https://cloud.incendo.org/discord
+- Docs: https://cloud.incendo.org/localization/#translations
 - Incendo Discord: https://discord.gg/aykZu32
