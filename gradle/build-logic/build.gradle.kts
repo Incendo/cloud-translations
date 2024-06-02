@@ -13,7 +13,6 @@ repositories {
 
 dependencies {
     implementation(libs.cloud.build.logic)
-    implementation(libs.gradleKotlinJvm)
 
     implementation(files(libs.javaClass.superclass.protectionDomain.codeSource.location))
 }
