@@ -10,7 +10,7 @@ checkstyle = "10.12.5"
 
 # Cloud
 cloud = "2.0.0-rc.2"
-cloud-minecraft = "2.0.0-beta.8"
+cloud-minecraft = "2.0.0-SNAPSHOT"
 
 # External
 immutables = "2.10.1"
