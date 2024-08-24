@@ -9,7 +9,7 @@ ktlint = "1.0.1"
 checkstyle = "10.12.5"
 
 # Cloud
-cloud = "2.0.0-rc.2"
+cloud = "2.0.0"
 cloud-minecraft = "2.0.0-beta.8"
 
 # External
