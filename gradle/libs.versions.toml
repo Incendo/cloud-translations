@@ -16,7 +16,7 @@ cloud-minecraft = "2.0.0-beta.8"
 immutables = "2.10.1"
 
 # Test
-jupiterEngine = "5.10.2"
+jupiterEngine = "5.13.2"
 mockitoCore = "4.11.0"
 mockitoJupiter = "4.11.0"
 truth = "1.4.2"
