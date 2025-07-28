@@ -9,7 +9,7 @@ indra {
     javaVersions {
         minimumToolchain(17)
         target(17)
-        testWith().set(setOf(17))
+        testWith().set(setOf(17, 21))
     }
 }
 

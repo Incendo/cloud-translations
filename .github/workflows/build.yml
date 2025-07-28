@@ -13,13 +13,12 @@ jobs:
         runs-on: "ubuntu-latest"
         steps:
             - uses: actions/checkout@v4
-            - uses: gradle/actions/wrapper-validation@v3
             - name: Set up JDK
               uses: actions/setup-java@v4
               with:
                   distribution: 'temurin'
-                  java-version: 17
-            - uses: gradle/actions/setup-gradle@v3
+                  java-version: 21
+            - uses: gradle/actions/setup-gradle@v4
               with:
                   # allow master and *-dev branches to write caches (default is only master/main)
                   cache-read-only: ${{ github.ref != 'refs/heads/master' && !(endsWith(github.ref, '-dev') && startsWith(github.ref, 'refs/heads/')) }}
@@ -41,13 +40,13 @@ jobs:
                   fi
             - name: Publish Snapshot
               if: "${{ env.STATUS != 'release' && github.event_name == 'push' && github.ref == 'refs/heads/main' }}"
-              run: ./gradlew publish
+              run: ./gradlew publishAllPublicationsToSonatypeSnapshots
               env:
                   ORG_GRADLE_PROJECT_sonatypeUsername: "${{ secrets.SONATYPE_USERNAME }}"
                   ORG_GRADLE_PROJECT_sonatypePassword: "${{ secrets.SONATYPE_PASSWORD }}"
             - name: Publish Release
               if: "${{ env.STATUS == 'release' && github.event_name == 'release' }}"
-              run: ./gradlew publishToSonatype closeAndReleaseSonatypeStagingRepository
+              run: ./gradlew publishReleaseCentralPortalBundle
               env:
                   ORG_GRADLE_PROJECT_sonatypeUsername: "${{ secrets.SONATYPE_USERNAME }}"
                   ORG_GRADLE_PROJECT_sonatypePassword: "${{ secrets.SONATYPE_PASSWORD }}"

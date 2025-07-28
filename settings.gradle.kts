@@ -3,7 +3,7 @@ enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 pluginManagement {
     repositories {
         gradlePluginPortal()
-        maven("https://oss.sonatype.org/content/repositories/snapshots/") {
+        maven("https://central.sonatype.com/repository/maven-snapshots/") {
             name = "sonatypeOssSnapshots"
             mavenContent { snapshotsOnly() }
         }
@@ -12,14 +12,16 @@ pluginManagement {
 }
 
 plugins {
-    id("org.gradle.toolchains.foojay-resolver-convention") version "0.8.0"
+    id("org.gradle.toolchains.foojay-resolver-convention") version "1.0.0"
 }
 
 dependencyResolutionManagement {
     repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
     repositories {
-        mavenCentral()
-        maven("https://oss.sonatype.org/content/repositories/snapshots/") {
+        mavenCentral {
+            mavenContent { releasesOnly() }
+        }
+        maven("https://central.sonatype.com/repository/maven-snapshots/") {
             name = "sonatypeOssSnapshots"
             mavenContent {
                 snapshotsOnly()
