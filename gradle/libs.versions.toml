@@ -4,19 +4,19 @@ cloud-buildLogic-rootProject-publishing = { id = "org.incendo.cloud-build-logic.
 cloud-buildLogic-rootProject-spotless = { id = "org.incendo.cloud-build-logic.spotless.root-project", version.ref = "cloud-build-logic" }
 
 [versions]
-cloud-build-logic = "0.0.17"
-ktlint = "1.0.1"
+cloud-build-logic = "0.0.19"
+ktlint = "1.8.0"
 checkstyle = "10.12.5"
 
 # Cloud
 cloud = "2.0.0"
-cloud-minecraft = "2.0.0-beta.11"
+cloud-minecraft = "2.0.0-beta.15"
 
 # External
 immutables = "2.12.1"
 
 # Test
-jupiterEngine = "5.10.2"
+jupiterEngine = "5.14.3"
 mockitoCore = "4.11.0"
 mockitoJupiter = "4.11.0"
 truth = "1.4.2"
