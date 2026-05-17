@@ -13,7 +13,7 @@ cloud = "2.0.0"
 cloud-minecraft = "2.0.0-beta.15"
 
 # External
-immutables = "2.12.1"
+immutables = "2.12.2"
 
 # Test
 jupiterEngine = "6.0.3"
