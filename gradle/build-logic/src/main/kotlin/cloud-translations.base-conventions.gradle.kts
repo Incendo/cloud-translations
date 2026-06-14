@@ -37,3 +37,11 @@ dependencies {
     testImplementation(libs.truth)
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 }
+
+tasks {
+    jar {
+        manifest {
+            attributes("Automatic-Module-Name" to "%s.%s".format(project.group, project.name.replace('-', '.')))
+        }
+    }
+}
